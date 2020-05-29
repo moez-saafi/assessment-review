@@ -59,7 +59,10 @@ function reduce(array, f, acc) {
 //wordLengths("hello its me") // [5,3,2]
 
 function wordLengths(str) {
-    // TODO: your code here 
+  var array = str.split(' ');
+    return map(array, function(word){
+      return word.length;
+    });
 }
 
 //=============================================================================
@@ -72,7 +75,10 @@ function wordLengths(str) {
 // countOccurrences("hello, world!", "l"); // 3
 
 function countOccurrences(string, character) {
-    // your code is here
+    var arr = string.split('');
+    return filter(arr, function(elem){
+      return (elem === character);
+    });
 }
 
 //=============================================================================
@@ -84,7 +90,10 @@ function countOccurrences(string, character) {
 // wordsLongerThanThree("Hello Mad World") //["Hello", "World"]
 
 function wordsLongerThanThree(str) {
-    // TODO: your code here 
+    var arr = str.split(' ');
+    return filter(arr, function(word){
+      return word.length > 3;
+    });
 }
 
 //=============================================================================
@@ -99,8 +108,12 @@ function wordsLongerThanThree(str) {
 //repeatString('dog', 3); // => 'dog' + 'dog' + 'dog' => 'dogdogdog'
 
 function repeatString(str, count) { 
- // TODO: your code here 
-} 
+    if(count === 0){
+      return '';
+      }
+    return str + repeatString(str, count-1);
+  }
+
  
 
 //=============================================================================
@@ -128,7 +141,33 @@ function repeatString(str, count) {
 // pizza.eatSlice();
 // pizza.eatSlice();
 
-// Write your code here .....
+function makePizza(crust, size, numberOfSlice){
+  var ingredients = "";
+
+  return{
+    addIngredients: function(newIngredient){
+      ingredients = ingredients +', '+newIngredient;
+      return ingredients;
+    },
+    displayIngredients: function(){
+      return 'The ingredients are: ' +  ingredients;
+    },
+    bakePizza: function(){
+      setTimeout(function (){
+        alert("Your "+ crust +', '+ size +', '+ numberOfSlice + " slice pizza is done")
+      }, 2000);
+    },
+    eatSlice: function(){
+      numberOfSlice = numberOfSlice - 1;
+      if(numberOfSlice > 0){
+        return 'eat pizza'
+      }else{
+        return 'sorry , No more slices !'
+      }
+
+    }
+  }
+}
 
 //=============================================================================
 /*                                  Q6                                      */
@@ -154,7 +193,31 @@ d- Decrement the number of "unread" books
 
 // Now, to make sure that you are actually reading, make a comment below this and type: Yes I am
 
-// Write your code here .....
+// yes i am :)
+
+function ReadingList(){
+  var reading = {};
+  reading.read = 0;
+  reading.unRead = 0;
+  reading.toRead = [];
+  reading.currentRead = 0;
+  reading.readBooks = [];
+  reading.AddBook = AddBook;
+  reading.finishCurrentBook = finishCurrentBook;
+  return reading;
+}
+ var AddBook = function(name){
+  this.toRead.push(name);
+  this.unRead = this.unRead + 1;
+  return this.toRead+', '+this.unRead;
+ }
+ var finishCurrentBook = function(name){
+  this.readBooks = this.readBooks + this.currentRead;
+  this.read = this.read + 1;
+  this.toRead.push(name);
+  this.unRead = this.unRead - 1;
+  return this.readBooks +', '+this.read+', '+this.toRead+', '+this.unRead;
+ }
 
 //=============================================================================
 /*                                  Q7                                       */
